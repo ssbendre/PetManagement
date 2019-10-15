@@ -29,7 +29,7 @@ const listPetsForOwner = async (req, res) => {
     try {
         fs.readFile('data.json','utf8',(err,content) => {
             let resp = JSON.parse(content).filter((item)=>{
-                return item.phone === req.query.phone;
+                return item.phone === req.query.id;
             });
             res.status(200).json(resp);
         });
@@ -50,7 +50,7 @@ const addPets = async (req, res) => {
             if(content === undefined) {
                 fs.writeFile('data.json',JSON.stringify(req.body),(err) => {
                     if(err) throw err;
-                    res.status(200).json("File saved successfully");
+                    res.status(201).json("File saved successfully");
                 });
             } else {
                 let tst = JSON.parse(content);
@@ -60,7 +60,7 @@ const addPets = async (req, res) => {
                 
                 fs.writeFile('data.json',JSON.stringify(tst),(err) => {
                     if(err) throw err;
-                    res.status(200).json("File saved successfully");
+                    res.status(201).json("File saved successfully");
                 });
             }
         });
@@ -70,19 +70,19 @@ const addPets = async (req, res) => {
 };
 
 /**
- * Update a Blob by id.
+ * Get Pet by name.
  * @param req
  * @param res
  * @return void
  */
 const getPets = async (req, res) => {
     try {
-        const blobSchema = new Blob(await Blob.findById(req.params.id));
-
-        blobSchema.firstName = req.body.blob.firstName;
-        blobSchema.lastName = req.body.blob.lastName;
-
-        res.status(200).json(await blobSchema.save());
+        fs.readFile('data.json','utf8',(err,content) => {
+            let resp = JSON.parse(content).filter((item)=>{
+                return item.Owner.Pets.name === req.body.name;
+            });
+            res.status(200).json(resp);
+        });
     } catch (err) {
         res.status(500).send(err);
     }
@@ -94,6 +94,6 @@ const getPets = async (req, res) => {
 router.get('/listOwners', listOwners);
 router.get('/listPetsForOwner/:id', listPetsForOwner);
 router.post('/addPets', addPets);
-router.get('/getPets/:id', getPets);
+router.post('/getPets', getPets);
 
 export default router;
