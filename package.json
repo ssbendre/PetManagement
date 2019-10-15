@@ -1,15 +1,15 @@
 {
-  "name": "unittestframework",
+  "name": "petmanagement",
   "version": "1.0.0",
-  "description": "A Unit Test Framework For Node Mongo",
+  "description": "A Demo application for managing Pet & Owner information",
   "main": "index.js",
   "scripts": {
     "start": "babel-node src/app.js",
     "test": "mocha --timeout 5000 --require babel-polyfill --require babel-register --exit",
     "lint": "./node_modules/.bin/eslint ./src"
   },
-  "author": "Amrit",
-  "license": "ISC",
+  "author": "Shekhar Bendre",
+  "license": "MIT",
   "dependencies": {
     "babel-node": "0.0.1-security",
     "body-parser": "^1.18.3",
