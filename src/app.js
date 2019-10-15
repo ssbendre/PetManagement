@@ -5,9 +5,6 @@ import bodyParser from 'body-parser';
 // *** routes *** //
 import routes from './routes/index';
 
-// *** config file *** //
-import { dev } from './config';
-
 // *** express instance *** //
 const app = express();
 
